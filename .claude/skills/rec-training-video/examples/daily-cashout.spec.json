@@ -1,0 +1,57 @@
+{
+  "title": "Daily Cashout Report",
+  "subtitle": "Finance → Daily Cashout · Admin walkthrough",
+  "outFile": "Rec-Training_Daily-Cashout.mp4",
+  "start": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/finance/daily-cashout",
+  "intro": {
+    "title": "Finance → Daily Cashout",
+    "lines": [
+      "The Daily Cashout page is where your staff reconcile cash and check",
+      "collected at each desk location.",
+      "We'll walk through finding past reports, then creating a new one."
+    ],
+    "narration": "Welcome. The Daily Cashout report lives under Finance in your Rec admin. It's where staff record and reconcile the cash and checks collected at each desk location at the end of a shift or day. From the main list you can see every submitted report, filter by date range or location, and create new ones. Let's walk through it."
+  },
+  "steps": [
+    {
+      "card": "New Report",
+      "title": "Creating a New Report",
+      "lines": [
+        "Click New Report to open the cashout form.",
+        "Choose the date range and desk location for this session.",
+        "The form auto-loads all transactions in that window."
+      ],
+      "narration": "To start a new cashout, click New Report in the top-right corner. You'll set the date range — typically today's date — and select the desk location you're reconciling. Once you confirm those, Rec automatically pulls in every cash and check transaction recorded at that location during the selected period."
+    },
+    {
+      "card": "Transactions",
+      "title": "Reviewing Transactions",
+      "lines": [
+        "The Transactions tab lists every cash and check payment",
+        "recorded for the selected desk location and date range.",
+        "Verify each line matches your physical drawer count."
+      ],
+      "narration": "The Transactions tab shows every cash and check payment that came through that desk location during your selected window. Each row shows the time, the staff member who took it, the amount, and the payment type. Review this list against your physical drawer to make sure nothing is missing."
+    },
+    {
+      "card": "GL Code Rollup",
+      "title": "GL Code Rollup",
+      "lines": [
+        "The GL Code Rollup groups transactions by general ledger code.",
+        "Use this to confirm revenue is mapped to the right accounts",
+        "before submitting the report."
+      ],
+      "narration": "The G L Code Rollup groups the same transactions by general ledger code, so you can see a subtotal for each revenue category. If something looks off — say a payment landed on the wrong account — this is the place to catch it before you close the report."
+    },
+    {
+      "card": "Save",
+      "title": "Entering Amounts & Saving",
+      "lines": [
+        "Enter the total cash, total check, and less-float amounts.",
+        "Rec calculates your expected total and shows any short or over.",
+        "Add a deposit slip number and notes, then click Save."
+      ],
+      "narration": "Back on the main form, enter your total cash count, total check amount, and the float amount you're keeping back in the drawer. Rec calculates the expected total from the transaction list and immediately shows whether you're short or over. Add your deposit slip number, any notes for your records, and click Save to submit the report."
+    }
+  ]
+}
