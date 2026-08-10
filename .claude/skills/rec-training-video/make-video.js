@@ -64,6 +64,16 @@ function findChromium() {
 }
 
 // ---- 1. Narrate -----------------------------------------------------------
+// Swap brand terms for phonetic spellings (config tts.pronunciations) before TTS.
+// Audio only — captions render the spec text as written. Longest keys win.
+function spoken(text) {
+  const map = CFG.tts.pronunciations || {};
+  let out = text;
+  for (const k of Object.keys(map).sort((a, b) => b.length - a.length)) {
+    out = out.replace(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), map[k]);
+  }
+  return out;
+}
 async function tts(text, file) {
   const c = CFG.tts;
   // Voice is chosen at intake; spec/env overrides the config default without editing it.
@@ -71,7 +81,7 @@ async function tts(text, file) {
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
     method: 'POST',
     headers: { 'xi-api-key': EL_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text, model_id: c.model, voice_settings: c.voiceSettings }),
+    body: JSON.stringify({ text: spoken(text), model_id: c.model, voice_settings: c.voiceSettings }),
   });
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${await res.text()}`);
   fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));

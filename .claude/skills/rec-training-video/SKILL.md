@@ -104,7 +104,7 @@ For every page, read its real content (screenshot or dump `main` innerText while
 Copy an example and edit. Top-level: `title`/`subtitle` (title card), `start` (landing URL — the example link if they gave one), optional `baseUrl` (non-prod host), optional `voiceId` (chosen narrator), `intro`, optional `back` (breadcrumb link text to return between sections). Per section provide:
 - `card`: exact on-screen text of the card/row to click (SPA nav keeps the caption overlay alive). Use `path` instead for a direct URL if there's no card to click.
 - `title` + `lines`: the on-screen caption (short; `lines` is an array, one per line).
-- `narration`: 1–3 spoken sentences. Write for the ear — expand abbreviations the way they should be *said* ("GL" reads fine; write "partner support at rec dot us", "twelve months", etc.).
+- `narration`: 1–3 spoken sentences. Write for the ear — expand abbreviations the way they should be *said* ("GL" reads fine; write "twelve months", etc.). Brand terms with fixed pronunciations (like rec.us → "wreck dot you ess") are handled automatically by `tts.pronunciations` in config.json — write them naturally and add new problem words to that map, not to individual specs.
 Size the number of sections and narration length to the requester's target length. Keep narration tight and factual.
 
 ### 5. Build
@@ -127,6 +127,7 @@ Reuse the same `config.json` for every video in a series so voice, pacing, and b
 
 ## Tuning knobs (config.json)
 - `tts.voiceId` / `voiceName` — swap the narrator (the provided key may lack `voices_read`; pass a known voice ID). `tts.voiceSettings.stability` etc. shape delivery.
+- `tts.pronunciations` — phonetic respellings applied to narration (audio only, captions untouched) before TTS, case-insensitive, longest match first. E.g. `"rec.us": "wreck dot you ess"`. Add any word the narrator mangles.
 - `tempo.leadMs` / `tailMs` — pacing (how long a section lingers after its line ends). Raise `tailMs` for a slower feel.
 - `brand.outro.email` and copy — change the contact or wording.
 - `brand.titleCardSeconds` — title-card hold time.

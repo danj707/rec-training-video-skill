@@ -7,7 +7,11 @@
     "voiceId": "pNInz6obpgDQGcFmaJgB",
     "voiceName": "Adam",
     "model": "eleven_turbo_v2_5",
-    "voiceSettings": { "stability": 0.5, "similarity_boost": 0.75, "style": 0.0, "use_speaker_boost": true }
+    "voiceSettings": { "stability": 0.5, "similarity_boost": 0.75, "style": 0.0, "use_speaker_boost": true },
+    "pronunciations": {
+      "rec dot us": "wreck dot you ess",
+      "rec.us": "wreck dot you ess"
+    }
   },
   "tempo": {
     "leadMs": 300,

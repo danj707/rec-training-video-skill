@@ -1,0 +1,77 @@
+{
+  "title": "Configuring a Campsite",
+  "subtitle": "Nightly Reservations · Admin walkthrough",
+  "outFile": "Rec-Training_Campsite-Nightly-Reservations.mp4",
+  "start": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/locations",
+  "intro": {
+    "title": "Facilities → Locations",
+    "lines": [
+      "Every campsite belongs to a location.",
+      "We'll open Portland Parks and configure its campsite",
+      "for nightly reservations."
+    ],
+    "narration": "Welcome! Let's configure a campsite that guests book by the night. Campsites live under Locations in the Rec admin."
+  },
+  "steps": [
+    {
+      "card": "Portland Parks (Dan's Test Location)",
+      "title": "Location · Details",
+      "lines": [
+        "Address, hours of operation, and timezone live here,",
+        "plus the default reservation window —",
+        "how far ahead guests can book at this location."
+      ],
+      "narration": "A location's Details tab holds the address, hours of operation, timezone, and the default reservation window. Its sites live on the next tab."
+    },
+    {
+      "card": "Sites",
+      "title": "Location · Sites",
+      "lines": [
+        "Every bookable space at this location.",
+        "Create one with New Site, or open an existing site —",
+        "our campsite is Dan's Camping Hut."
+      ],
+      "narration": "The Sites tab lists every bookable space at this location. We'll open our campsite — Dan's Camping Hut."
+    },
+    {
+      "card": "Dan's Camping Hut",
+      "title": "Campsite · Basic Site Settings",
+      "lines": [
+        "Site Type: Campsite · kind: Tent & RV, Tent, RV, or Lodging.",
+        "Booking Unit → Nightly is the key switch.",
+        "Set check-in and check-out times, capacity, and publish."
+      ],
+      "narration": "Set the Site Type to Campsite and pick the kind — tent, R V, or lodging. Then the key switch: Booking Unit, set to Nightly. Add check-in and check-out times, capacity, and publish."
+    },
+    {
+      "card": "Instant Book Settings",
+      "title": "Campsite · Instant Book",
+      "lines": [
+        "Let guests book directly on rec.us.",
+        "Stay Duration: minimum and maximum nights per stay.",
+        "Reservation Dates & Release Times: when dates open up."
+      ],
+      "narration": "Instant Book lets guests book directly on rec dot us. Stay Duration caps the nights per stay — one to five here — and Reservation Dates controls how far out guests can book."
+    },
+    {
+      "card": "Mandatory Add-Ons",
+      "title": "Campsite · Add-Ons",
+      "lines": [
+        "Add-ons on a nightly site are priced per night.",
+        "Mandatory add-ons apply to every booking;",
+        "optional add-ons are the guest's choice."
+      ],
+      "narration": "Add-ons are priced per night. Mandatory add-ons, like this trash disposal fee, apply to every booking; optional ones are the guest's choice."
+    },
+    {
+      "card": "Default Pricing",
+      "title": "Campsite · Pricing",
+      "lines": [
+        "Set the default price per night and tax.",
+        "Pick the GL code so revenue maps to your accounting.",
+        "Save — and the campsite is bookable by the night."
+      ],
+      "narration": "Finally, set the default price per night, tax, and the G L code for accounting. Hit Save — your campsite now takes nightly reservations."
+    }
+  ]
+}
