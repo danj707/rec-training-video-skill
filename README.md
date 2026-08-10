@@ -14,7 +14,8 @@ No downloads, no coding, no setup — everything runs in the cloud and Claude do
 
 1. Go to **[claude.ai/code](https://claude.ai/code)** and start a session on **this repo** (`rec-training-video-skill`).
 2. Ask, in plain English: *"Make a Rec training video walking through the Memberships settings."*
-3. Wait ~3–5 minutes and download the **MP4** Claude posts back.
+3. Claude asks you a few quick questions — a **rec.us login** to record with, **which site/org**, an **example link** to the page (if you have one), **what to cover**, roughly **how long**, and a **narrator voice**.
+4. Wait ~3–5 minutes and download the **MP4** Claude posts back, then **review it for correctness**.
 
 First time? Follow the two setup sections below, then come back to this.
 
@@ -57,8 +58,16 @@ Claude needs to see your GitHub so it can open the repo. You do this once.
    - *"Make a Rec training video walking through the Memberships settings."*
    - *"Record a walkthrough of the check-in flow."*
    - *"Demo video for Facilities → Reservations."*
-4. Wait ~3–5 minutes. Claude logs into the rec.us sandbox, records the screen, adds the
-   voiceover and captions, brands it, and posts the finished **MP4** in the chat to download.
+4. Claude asks a few quick questions before it starts:
+   - **Login** — a rec.us email + password to record with (use a sandbox/admin login with no real PII). It's used only for this one video and is **never saved or committed** — see Notes.
+   - **Which site / org** — production by default; paste the org's admin URL or name.
+   - **Example link** — a URL to the exact page it's about, if you have one (removes guesswork).
+   - **What to cover** — plain-language description of the sections/flow to record and explain.
+   - **How long** — a rough target, e.g. "~90 seconds" or "2–3 minutes".
+   - **Voice** — pick a narrator (Adam is the default and matches the existing videos).
+5. Wait ~3–5 minutes. Claude logs in, records the screen, adds the voiceover and captions,
+   brands it, and posts the finished **MP4** in the chat. **Review it for correctness** —
+   it's a draft; Claude will note anything it wasn't sure about, and can re-cut with fixes.
 
 Stuck at any point? Just ask Claude in that session — *"how do I use this?"* — and it'll walk you through it.
 
@@ -66,10 +75,12 @@ Stuck at any point? Just ask Claude in that session — *"how do I use this?"* �
 
 ## Notes
 
-- **Keep this repo internal to Rec.** It contains an internal *sandbox* rec.us login and a
-  live ElevenLabs API key (bundled in `.claude/skills/rec-training-video/credentials.json`
-  so there's zero setup). If either leaks outside Rec, rotate the ElevenLabs key from the
-  Rec ElevenLabs account.
+- **Login is never stored.** You provide a rec.us login when Claude asks; it's used only to
+  log in for that one recording and is **never written to disk or committed to this repo**.
+  Nothing but the shared **ElevenLabs API key** is bundled (in
+  `.claude/skills/rec-training-video/credentials.json`, for zero-setup narration).
+- **Keep this repo internal to Rec.** If the ElevenLabs key ever leaks outside Rec, rotate it
+  from the Rec ElevenLabs account.
 - **Not everyone needs access.** Anyone with a GitHub account can connect in ~1 minute; if
   some teammates don't use GitHub, have one person generate the videos and share the MP4s.
 - **Tweaking voice / pacing / branding:** everything lives in
