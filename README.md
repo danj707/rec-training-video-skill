@@ -49,6 +49,9 @@ Claude needs to see your GitHub so it can open the repo. You do this once.
 > add `rec-training-video-skill`, and save.
 
 ---
+Set your cloud environment at claude.ai/code to full 
+<img width="597" height="573" alt="image" src="https://github.com/user-attachments/assets/ef5737fc-861c-4198-a638-fe0eaee5b5f3" />
+
 
 ## Making a video (every time)
 
