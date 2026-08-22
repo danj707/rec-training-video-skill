@@ -68,6 +68,15 @@ The login the requester gives you is used **only** to record this one video, the
 
 Net effect: the credentials live only in the running build's memory and the ephemeral container, never in the repository. When the build is done, they're gone.
 
+### Demo data — never show real resident PII
+
+When a video needs to show people — a user, a household, a profile, a search result, a roster — use a **fake test household**, not the live directory, so no real resident's name, email, phone, or birthdate ever lands on screen:
+
+- **Niagara Falls sandbox (org `a976a11a-5303-4785-838a-1b281ca77678`):** use **Ron Swanson's Household** — login/owner `niagara@rec.us`, household id `ced1aee0-e89d-404c-abe1-c0ce27bd14f4`. It's fully fake (Parks & Rec) data with lots of members, bookings, transactions, etc. Point every people-related step at this household.
+- **Avoid these as general shots — they expose real PII:** the **Users directory** (`/users`, even filtered) and a household's **Profiles tab** both list real residents' emails, phones, and birthdates. Safe to show: a household's **overview / Bookings** (names only) and the **Groups** list (group names, coverage, counts — no individuals).
+- **Other orgs:** ask the requester for their designated fake/test household before showing any personal data; don't default to the live directory.
+- After building any video that touched people data, sample frames and confirm no real emails/phones/birthdates are visible before delivering.
+
 ## What's fixed vs. what you provide
 
 **Fixed (config.json — don't change unless the user asks):**
@@ -104,7 +113,7 @@ For every page, read its real content (screenshot or dump `main` innerText while
 Copy an example and edit. Top-level: `title`/`subtitle` (title card), `start` (landing URL — the example link if they gave one), optional `baseUrl` (non-prod host), optional `voiceId` (chosen narrator), `intro`, optional `back` (breadcrumb link text to return between sections). Per section provide:
 - `card`: exact on-screen text of the card/row to click (SPA nav keeps the caption overlay alive). Use `path` instead for a direct URL if there's no card to click.
 - `title` + `lines`: the on-screen caption (short; `lines` is an array, one per line).
-- `narration`: 1–3 spoken sentences. Write for the ear — expand abbreviations the way they should be *said* ("GL" reads fine; write "twelve months", etc.). Brand terms with fixed pronunciations (like rec.us → "wreck dot you ess") are handled automatically by `tts.pronunciations` in config.json — write them naturally and add new problem words to that map, not to individual specs.
+- `narration`: 1–3 spoken sentences. Write for the ear — expand abbreviations the way they should be *said* ("GL" reads fine; write "partner support at rec dot us", "twelve months", etc.).
 Size the number of sections and narration length to the requester's target length. Keep narration tight and factual.
 
 ### 5. Build
@@ -127,7 +136,6 @@ Reuse the same `config.json` for every video in a series so voice, pacing, and b
 
 ## Tuning knobs (config.json)
 - `tts.voiceId` / `voiceName` — swap the narrator (the provided key may lack `voices_read`; pass a known voice ID). `tts.voiceSettings.stability` etc. shape delivery.
-- `tts.pronunciations` — phonetic respellings applied to narration (audio only, captions untouched) before TTS, case-insensitive, longest match first. E.g. `"rec.us": "wreck dot you ess"`. Add any word the narrator mangles.
 - `tempo.leadMs` / `tailMs` — pacing (how long a section lingers after its line ends). Raise `tailMs` for a slower feel.
 - `brand.outro.email` and copy — change the contact or wording.
 - `brand.titleCardSeconds` — title-card hold time.
