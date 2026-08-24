@@ -26,9 +26,9 @@ const SPEC = JSON.parse(fs.readFileSync(SPEC_PATH, 'utf8'));
 const OUT = process.argv[3] || SPEC.outFile || 'rec-training-video.mp4';
 const WORK = fs.mkdtempSync(path.join(os.tmpdir(), 'rtv-'));
 
-// Credentials. The login is provided at run time (REC_EMAIL / REC_PASSWORD) — the
-// skill prompts for it, nothing is bundled or written to disk. The ElevenLabs key
-// falls back to the bundled credentials.json (shared Rec key) for zero-setup narration.
+// Credentials. Defaults to the bundled Rec University demo login + ElevenLabs key in
+// credentials.json (zero-setup recording of the training org). REC_EMAIL / REC_PASSWORD
+// override the login at run time when recording a different org (never commit that login).
 const CREDS = (() => { try { return JSON.parse(fs.readFileSync(path.join(HERE, 'credentials.json'), 'utf8')); } catch { return {}; } })();
 const EMAIL = process.env.REC_EMAIL || CREDS.recEmail;
 const PW = process.env.REC_PASSWORD || CREDS.recPassword;
@@ -64,16 +64,6 @@ function findChromium() {
 }
 
 // ---- 1. Narrate -----------------------------------------------------------
-// Swap brand terms for phonetic spellings (config tts.pronunciations) before TTS.
-// Audio only — captions render the spec text as written. Longest keys win.
-function spoken(text) {
-  const map = CFG.tts.pronunciations || {};
-  let out = text;
-  for (const k of Object.keys(map).sort((a, b) => b.length - a.length)) {
-    out = out.replace(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), map[k]);
-  }
-  return out;
-}
 async function tts(text, file) {
   const c = CFG.tts;
   // Voice is chosen at intake; spec/env overrides the config default without editing it.
@@ -81,7 +71,7 @@ async function tts(text, file) {
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
     method: 'POST',
     headers: { 'xi-api-key': EL_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text: spoken(text), model_id: c.model, voice_settings: c.voiceSettings }),
+    body: JSON.stringify({ text, model_id: c.model, voice_settings: c.voiceSettings }),
   });
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${await res.text()}`);
   fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
@@ -212,7 +202,7 @@ function brand(body, narrOutro) {
 }
 
 (async () => {
-  if (!EMAIL || !PW) throw new Error('Login required: set REC_EMAIL and REC_PASSWORD (the skill prompts for these — no login is bundled).');
+  if (!EMAIL || !PW) throw new Error('Login required: the bundled Rec University login is missing from credentials.json — set REC_EMAIL and REC_PASSWORD, or restore credentials.json.');
   if (!EL_KEY) throw new Error('missing ELEVENLABS_API_KEY (bundled in credentials.json, or set the env var).');
   console.log('1/4 narrating…'); const narr = await narrateAll();
   console.log('2/4 recording…'); const rec = await record(narr);
