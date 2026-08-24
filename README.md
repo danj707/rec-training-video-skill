@@ -12,12 +12,14 @@ No downloads, no coding, no setup — everything runs in the cloud and Claude do
 
 ## Make a video (the short version)
 
-1. Go to **[claude.ai/code](https://claude.ai/code)** and start a session on **this repo** (`rec-training-video-skill`).
+1. At **[claude.ai/code](https://claude.ai/code)**, make sure your environment's **network
+   access is Full** (Step C — this trips people up), then start a session on **this repo**
+   (`rec-training-video-skill`).
 2. Ask, in plain English: *"Make a Rec training video walking through the Memberships settings."*
 3. Claude asks you a few quick questions — a **rec.us login** to record with, **which site/org**, an **example link** to the page (if you have one), **what to cover**, roughly **how long**, and a **narrator voice**.
 4. Wait ~3–5 minutes and download the **MP4** Claude posts back, then **review it for correctness**.
 
-First time? Follow the two setup sections below, then come back to this.
+First time? Follow the three setup sections below, then come back to this.
 
 ---
 
@@ -49,13 +51,50 @@ Claude needs to see your GitHub so it can open the repo. You do this once.
 > add `rec-training-video-skill`, and save.
 
 ---
-Set your cloud environment at claude.ai/code to full 
+
+### Step C — Set your environment's network access to **Full** ⚠️
+
+**Do this before you start a session, not during one.** The skill has to reach the narration
+service (`api.elevenlabs.io`) and `rec.us` itself. If your environment's network access is
+anything narrower, the build fails partway through with a proxy error that looks like a
+broken skill and isn't.
+
+At **[claude.ai/code](https://claude.ai/code)**, open your environment's settings and set
+**network access to Full**:
+
 <img width="597" height="573" alt="image" src="https://github.com/user-attachments/assets/ef5737fc-861c-4198-a638-fe0eaee5b5f3" />
 
+**Then start a new session.** The network policy is applied when a session's workspace is
+created, so changing the setting does **not** unblock a session that is already open — you
+have to open a fresh one afterwards. This is the single most common way people get stuck:
+flip the setting, retry in the same session, see the identical error.
+
+> **Access to the repo is not the same as access to the network.** Being invited to this repo
+> (Step A) gives you the skill *and* the shared narration key — but **not** a network policy.
+> Everyone runs sessions in their own environment, so "it works for Dan" does not carry over.
+> You have to set your own environment to Full.
+
+**Check it in one line**, inside any session:
+
+```bash
+curl -s -o /dev/null -w 'elevenlabs -> HTTP %{http_code}\n' https://api.elevenlabs.io/v1/voices
+```
+
+`200` means you are good to go. `000`, `403` or `407` means the session is still blocked — set
+the environment to Full and open a **new** session. This check needs no API key, so it can
+never be confused with a credentials problem. For a fuller read-out, ask Claude to run
+`bash scripts/check-egress.sh`, which also checks `rec.us` and prints the fix.
+
+Still blocked in a brand-new session on Full? Then the restriction is on your
+account/organization rather than the environment — flag it to whoever administers Claude for
+your org.
+
+---
 
 ## Making a video (every time)
 
-1. On **[claude.ai/code](https://claude.ai/code)**, click **New session** (or **+**).
+1. On **[claude.ai/code](https://claude.ai/code)**, confirm the environment's network access is
+   still **Full** (Step C), then click **New session** (or **+**).
 2. When it asks which **repository**, pick **`rec-training-video-skill`** and leave the branch as **`main`**. Start the session. (This spins up a temporary cloud workspace — you don't install anything; Claude works in there.)
 3. Type what you want, e.g.:
    - *"Make a Rec training video walking through the Memberships settings."*
@@ -84,14 +123,27 @@ Stuck at any point? Just ask Claude in that session — *"how do I use this?"* �
   `.claude/skills/rec-training-video/credentials.json`, for zero-setup narration).
 - **Keep this repo internal to Rec.** If the ElevenLabs key ever leaks outside Rec, rotate it
   from the Rec ElevenLabs account.
+- ⚠️ **Open item (2026-08-24): the bundled key is currently exposed.** This repo's visibility
+  is **public**, and `credentials.json` is committed (`822ba83`) — so the shared ElevenLabs key
+  is readable by anyone who finds the repo. Rotate the key, and either make the repo private or
+  move the key out of git and into an environment variable. `make-video.js` already prefers
+  `ELEVENLABS_API_KEY` over the bundled file, so nothing in the code has to change. Trade-off
+  worth knowing: an env var is the one thing that does *not* travel to teammates via a clone —
+  though as Step C shows, each person's environment needs setting up regardless.
 - **Not everyone needs access.** Anyone with a GitHub account can connect in ~1 minute; if
   some teammates don't use GitHub, have one person generate the videos and share the MP4s.
 - **Tweaking voice / pacing / branding:** everything lives in
   `.claude/skills/rec-training-video/config.json` (narrator voice, timing, title/outro
   cards). Change the narrator by dropping in a different ElevenLabs voice ID.
 - **How it works / authoring specs:** see `.claude/skills/rec-training-video/SKILL.md`.
-- The skill needs a container with a headless browser + ffmpeg (which Claude Code on the web
-  provides). It does **not** render on plain claude.ai chat.
-- **Network:** the cloud environment must be able to reach `rec.us` and `api.elevenlabs.io`.
-  If someone hits a network/login error, that environment's outbound-access policy is the
-  cause — the default usually works; flag it to whoever manages your Claude Code environments.
+- The skill needs a container with a headless browser + ffmpeg. It does **not** render on plain
+  claude.ai chat. Chromium comes pre-installed, but **ffmpeg does not** — the session ships only
+  Playwright's stripped-down build (no H.264/AAC, so the MP4 mux fails on it). Claude installs
+  the real one with `apt-get update && apt-get install -y ffmpeg`, plus `npm ci` for the
+  builder's two dependencies. Both are quick; just don't be surprised by the setup step.
+- **Network: set the environment to Full — see Step C.** The cloud environment must reach
+  `rec.us` and `api.elevenlabs.io`. **Do not assume the default works: it does not always.**
+  A teammate lost a session to exactly this in Aug 2026, on a narrower policy, using this repo
+  and this key. The policy is per-environment and per-person, it is applied when the session
+  starts (so a mid-session change needs a new session), and a proxy `403` is a policy denial —
+  not something to retry, and never a key problem.

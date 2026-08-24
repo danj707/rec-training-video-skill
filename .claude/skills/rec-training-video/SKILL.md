@@ -15,6 +15,41 @@ write the narration, and run a deterministic builder (`make-video.js`). Producti
 sounds identical. **The requester reviews the finished video for correctness** — so keep
 narration factual and flag anything you were unsure about when you deliver.
 
+## Step 00 — Environment network access must be FULL (check this before anything else)
+
+**Do this before intake.** The builder cannot make a video without reaching
+`api.elevenlabs.io` (narration) and `rec.us` (recording). If the session's environment
+does not allow that egress, the build dies inside `make-video.js` at the first TTS call,
+where it reads like a code or key bug and is neither.
+
+```bash
+bash scripts/check-egress.sh      # exits 0 = safe to build, 1 = blocked, with the fix
+```
+
+If it reports BLOCKED, stop and fix the environment — do not start writing a spec:
+
+1. At **claude.ai/code**, set the environment's **network access to FULL**.
+2. **Start a NEW session.** The policy is applied when the session's container is created,
+   so a session already running keeps the policy it started with. Flipping the setting does
+   **not** unblock the session you are in. (Observable: `HTTPS_PROXY`'s port is per-container
+   and changes across sessions — that proxy is stood up with the container, not reloaded.)
+3. Re-run the check in the new session.
+
+Still blocked in a fresh session on FULL ⇒ the denial is above the environment (an
+account/org-level egress policy) and needs an org owner, not an environment change.
+
+### Access to this repo is NOT the same as access to the network (learned 2026-08-24)
+
+A teammate spent a session blocked here while using this repo, this skill, and the shared
+ElevenLabs key. **Cloning the repo carries the skill and the bundled key; it cannot carry an
+egress policy.** Whoever runs the session runs it in *their own* account's environment, with
+whatever network policy that environment was created with. So "it works for Dan" tells you
+nothing about your session, and a `403` at the proxy is never a key problem — the proxy
+blocks on hostname before any key is sent.
+
+Do not treat a proxy `403`/`407` as retryable, and do not route around it: it is a policy
+denial, and the fix is the three steps above.
+
 ## Step 0 — Intake (ask the requester first)
 
 Before doing anything else, collect these. Ask for them together in one message; fill
@@ -89,9 +124,23 @@ When a video needs to show people — a user, a household, a profile, a search r
 
 ## Prerequisites (check first, tell the user if missing)
 
+- **Network: FULL** — see Step 00 above. Check it first; everything else is wasted if this fails.
 - Login: provided at intake → export as `REC_EMAIL` / `REC_PASSWORD` for the build only.
 - ElevenLabs key: **bundled** in `credentials.json` (shared Rec key); `ELEVENLABS_API_KEY` overrides it.
-- Tools: `node` with Playwright, `ffmpeg` (full build, for the MP4 muxer), Chromium (pre-installed at `/opt/pw-browsers`). If `ffmpeg` is the minimal Playwright build, `apt-get install -y ffmpeg`.
+  The shared key is scoped to **text-to-speech only** — verified 2026-08-24: the TTS POST
+  returns 200, while `/v1/voices`, `/v1/models`, `/v1/user` and `/v1/user/subscription` all
+  return **401** with it. So never make the build depend on a voice or model lookup (use the
+  preset IDs in the table above), and read a 401 from those endpoints as the key's scope, not
+  as a bad key or a network block. Note `/v1/voices` answers 200 *unauthenticated*, which is
+  what makes it a clean network-only probe.
+- `node_modules` is git-ignored, so a fresh session needs `npm ci` in the skill directory
+  (2 packages, ~2s).
+- **`ffmpeg`: install the real one — Playwright's will not work.** The bundled
+  `/opt/pw-browsers/ffmpeg-1011/ffmpeg-linux` is built `--disable-everything` (webm/VP8/PNG
+  only: no H.264, no AAC, no mp4 muxer), so the final mux fails on it. Install with
+  `apt-get update && apt-get install -y ffmpeg` — **the `update` is required**, since a stale
+  apt index 404s on half the dependency debs. Verify `ffmpeg` and `ffprobe` are both on PATH.
+- Chromium is pre-installed at `/opt/pw-browsers` — do not run `playwright install`.
 - Behind the CCR agent proxy, the builder handles TLS itself (pins the proxy CA, caps TLS at 1.2, reads `HTTPS_PROXY`). No action needed.
 
 ## Workflow
@@ -131,6 +180,31 @@ The ElevenLabs key comes from the bundled `credentials.json` (override with `ELE
 - Spot-check audio alignment: speech during sections, silence in the gaps.
 - Deliver with `SendUserFile` (display: render). Tell the requester it's a **draft for their review**, name anything you were uncertain about (a field you couldn't verify, a page that behaved oddly), and offer to re-cut with fixes.
 
+## Troubleshooting a failed narration call
+
+Every one of these presents as "ElevenLabs won't answer", and they have different fixes.
+Read the **status code**, not the hostname, and run `bash scripts/check-egress.sh` first.
+
+| Symptom | What it is | Fix |
+|---|---|---|
+| `403` / `407` from the proxy, on the CONNECT line before TLS | The environment's egress policy blocked the host | Step 00 — set network to FULL, **new session**. Never retry or route around it |
+| `000` / no HTTP response | Same class: CONNECT refused | As above |
+| `405 Method Not Allowed` from the proxy | A client sent plain HTTP instead of CONNECT | Unset `HTTP_PROXY`; only `HTTPS_PROXY` is served. Upgrade axios if < 1.16.1 |
+| Hangs, then times out, no proxy error | A client that ignores `HTTPS_PROXY` | Node's built-in `fetch` needs `NODE_USE_ENV_PROXY=1` (Node ≥ 22.21); `make-video.js` sets it in `narrateAll()`. A hand-rolled script won't have it |
+| `401` on `/v1/voices`, `/v1/models`, `/v1/user` | The shared key is TTS-scoped — expected, not a fault | Use the preset voice IDs; don't look voices up |
+| `401` on the TTS POST itself | Genuinely bad or rotated key | Check `credentials.json` / `ELEVENLABS_API_KEY` |
+
+Confirm which one you have from the proxy itself — the port is per-session, so read it from
+the environment rather than hardcoding it:
+
+```bash
+curl -sS "$HTTPS_PROXY/__agentproxy/status"   # selective:true and recentRelayFailures name real denials
+```
+
+A genuine policy denial appears in `recentRelayFailures`; an empty list plus a successful
+CONNECT means the failure was never egress. `/root/.ccr/README.md` documents the full set of
+failure classes.
+
 ## Consistency across a set
 Reuse the same `config.json` for every video in a series so voice, pacing, and branding match. Only the spec's `title`, `subtitle`, and per-section text change. Keep output names consistent, e.g. `Rec-Training_<Topic>.mp4`.
 
@@ -147,6 +221,7 @@ Reuse the same `config.json` for every video in a series so voice, pacing, and b
 - `overlay.js` — the caption + cursor overlay injected into each page.
 - `credentials.json` — bundled ElevenLabs key only (no login).
 - `examples/` — sample specs to copy.
+- `../../../scripts/check-egress.sh` (repo root `scripts/`) — the Step 00 pre-flight check.
 
 ## Scope note
 The packaged builder records **click-through walkthroughs** (navigate to pages / click cards, describe them). For flows that need live interaction with streaming responses (e.g. typing into Rec AI / Seb chat and waiting for it to think), that needs a hand-built recorder with think-gap compression — out of scope for the one-command builder; do it as a bespoke script if asked.
