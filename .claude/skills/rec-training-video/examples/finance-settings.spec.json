@@ -11,14 +11,14 @@
   },
   "steps": [
     { "card": "Chart of Accounts", "title": "GL Library · Chart of Accounts",
-      "lines": ["Your master list of GL accounts — each has a name and a GL code.", "These are referenced throughout the accounting system.", "Search, add, archive, or export accounts from here."],
-      "narration": "First, the GL Library. The Chart of Accounts is your master list of general ledger accounts. Each account has a name and a GL code, and these are referenced throughout the accounting system. From here you can search, add, archive, or export accounts." },
+      "lines": ["Your master list of GL accounts — each has a name and a GL code.", "We recommend finance teams build this out first: once these codes exist,", "they populate dropdowns for programming staff across programs, facilities,", "memberships, tickets, and store items and fees."],
+      "narration": "First, the GL Library. The Chart of Accounts is your master list of general ledger accounts — each one has a name and a GL code. We recommend finance teams build this list out first, because once these codes exist, they'll show up in dropdown menus for programming staff to use when setting up programs, facilities, memberships, tickets, and store items and fees." },
     { "card": "Default Accounts", "title": "Accounting · Default Accounts",
       "lines": ["The fallback GL accounts journal entries post to.", "Standard revenue splits by payment method — Credit Card, Cash, Check.", "Also account-credit, security-deposit, tax and transaction-fee accounts."],
       "narration": "Under Accounting, Default Accounts sets the fallback GL accounts that journal entries post to. Standard revenue is split by payment method — credit card, cash, and check — and refunds post back as credits. You'll also set the accounts for account credit, security deposits, tax, and transaction fees here." },
     { "card": "General Ledger", "title": "Accounting · General Ledger",
-      "lines": ["Org-wide revenue-recognition rules, one set per revenue type.", "Each row is tagged Purchase or Service Delivery.", "The second video walks through these in detail."],
-      "narration": "Next, the General Ledger. These are your organization-wide revenue recognition rules, one set per revenue type. Each row is tagged either Purchase or Service Delivery, showing when its revenue is recognized. We'll cover these in depth in the second video." },
+      "lines": ["Lists every revenue type org-wide — memberships, events, passes,", "registrations, facility rentals, and more.", "Core revenue types show whether it's recognized at Purchase", "or at Service Delivery."],
+      "narration": "Next, the General Ledger lists every revenue type across your organization — memberships, events, passes, registrations, facility rentals, and more. For the core revenue types, it also shows whether that revenue is recognized at Purchase or at Service Delivery." },
     { "card": "Tax", "title": "Transaction Rules · Tax",
       "lines": ["Choose the GL code for tax — inherit it from each tax item,", "or apply one global GL code across all taxable transactions."],
       "narration": "In Transaction Rules, the Tax page controls the GL code used for tax. You can inherit the code from each individual tax item, or apply one global GL code across all taxable transactions." },
@@ -29,10 +29,10 @@
       "lines": ["Toggle whether the 2% ticket service fee (min $0.50) is passed to", "customers or absorbed by the org — and set its GL code."],
       "narration": "Ticket Service Fee lets you decide whether the two percent ticket service fee, with a fifty cent minimum, is passed on to customers at checkout or absorbed by your organization. You also set the GL code it posts to." },
     { "card": "Desk Location", "title": "Transaction Rules · Desk Location",
-      "lines": ["Require staff to select a desk location before taking a payment —", "useful for reconciling cash drawers by location."],
-      "narration": "Desk Location, when enabled, requires staff to select a desk location before processing any payment. That's useful for reconciling cash drawers by location." },
+      "lines": ["Require staff to select a desk location before taking a payment.", "We recommend finance teams enable this — it makes reconciling", "cash drawers by location much easier."],
+      "narration": "Desk Location, when enabled, requires staff to select a desk location before processing any payment. We recommend finance teams turn this on — it makes reconciling cash drawers by location far easier." },
     { "card": "Price Override", "title": "Transaction Rules · Price Override",
-      "lines": ["Require staff to enter a reason and note whenever they override a price."],
-      "narration": "And Price Override prompts staff to enter a reason and a note whenever they override a price, so every change is documented." }
+      "lines": ["Require staff to enter a reason and note whenever they override a price.", "We recommend finance teams require this too, so every", "override leaves a paper trail."],
+      "narration": "And Price Override prompts staff to enter a reason and a note whenever they override a price. We recommend finance teams require this as well, so every override leaves a clear paper trail." }
   ]
 }
