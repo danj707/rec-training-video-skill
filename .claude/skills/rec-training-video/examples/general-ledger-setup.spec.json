@@ -1,0 +1,71 @@
+{
+  "title": "Setting Up the General Ledger",
+  "subtitle": "Finance & Accounting · Admin walkthrough",
+  "outFile": "Rec-Training_General-Ledger-Setup.mp4",
+  "start": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/settings/finance/accounts",
+  "intro": {
+    "title": "Org Settings → Finance",
+    "lines": [
+      "For finance and accounting teams: setting up your accounting",
+      "after your GL library is built, so revenue maps automatically",
+      "into the general ledger — including how deferred revenue posts."
+    ],
+    "narration": "This walkthrough is for your finance and accounting teams. It picks up after you've built your GL library, and covers how to set up the rest of your accounting — mapping revenue accounts so the general ledger generates automatically, including how deferred revenue moves onto your books over time."
+  },
+  "steps": [
+    {
+      "path": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/settings/finance/accounts",
+      "title": "GL Library · Chart of Accounts",
+      "lines": ["Your master list of GL accounts, already built out here.", "Every GL code referenced elsewhere in Finance comes from this list."],
+      "narration": "This is your Chart of Accounts — the GL library you've already built. Every account has a name and a GL code, and those codes are what you'll reference everywhere else in Finance."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/settings/finance/default-accounts",
+      "title": "Accounting · Default Accounts",
+      "lines": ["The fallback GL accounts revenue and refunds post to, by payment method.", "Includes a dedicated Deferred Revenue Account for service-delivery items."],
+      "narration": "Default Accounts maps your chart of accounts to how money actually moves — standard revenue by payment method, plus a dedicated Deferred Revenue Account for anything recognized at service delivery. Get this page right, and the rest of the ledger generates itself."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/settings/finance/general-ledger",
+      "title": "Accounting · General Ledger",
+      "lines": ["One set of recognition rules per revenue type.", "Service Delivery rows defer revenue instead of recognizing it at purchase."],
+      "narration": "The General Ledger page sets recognition rules per revenue type. Rows tagged Service Delivery — Registrations, Memberships, Facility Rentals, Events — defer revenue into that Deferred Revenue Account at purchase, then automatically move it to the program or facility's GL account on the day of each session or reservation."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/settings/finance/general-ledger/registration",
+      "title": "General Ledger · Registrations",
+      "lines": ["Set to At Time of Service Delivery — revenue recognizes as each session occurs.", "Default GL code and the purchase/refund entries live here too."],
+      "narration": "Registrations recognizes at service delivery, so payment for a program is deferred and recognized as each session actually happens. This page also sets the default GL code, and the entries that post at purchase and at refund."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/settings/finance/general-ledger/facility-rentals",
+      "title": "General Ledger · Facility Rentals",
+      "lines": ["Also Service Delivery — revenue recognizes on the day of the reservation.", "Default GL code inherits from the site being rented."],
+      "narration": "Facility Rentals works the same way — revenue recognizes on the day of the actual reservation, not when it's booked. Its default GL code inherits from the site being rented."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/settings/finance/general-ledger/memberships",
+      "title": "General Ledger · Memberships",
+      "lines": ["Service Delivery, plus a Deferred Revenue Period —", "here set to 12 months for non-expiring memberships."],
+      "narration": "Memberships adds a Deferred Revenue Period. For non-expiring memberships, this spreads revenue evenly over a set number of months — here, twelve — instead of tying it to individual sessions."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/settings/finance/general-ledger/events",
+      "title": "General Ledger · Events",
+      "lines": ["Service Delivery: revenue recognizes when the ticketed event ends.", "The credit splits ticket face value and the ticket-service-fee GL code."],
+      "narration": "Events recognizes at service delivery too, specifically when each ticketed event ends. The credit splits between the ticket's face value GL code and the ticket service fee GL code."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/a976a11a-5303-4785-838a-1b281ca77678/accounting/general-ledger?filters%5BtimeRange%5D=%5B2026-08-24%2000%3A00%3A00%2C%202026-08-24%2023%3A59%3A59%5D",
+      "title": "Accounting → General Ledger · Entries",
+      "lines": ["Every journal entry your setup generates, one debit or credit line per row.", "Filter by account, GL code, or date to trace any transaction."],
+      "narration": "This is where it all lands — the actual General Ledger, under Accounting. Every setting we just walked through posts here automatically: for a service-delivery item, that's a debit out of Deferred Revenue paired with a credit into that program or facility's GL account, on the day it's recognized."
+    },
+    {
+      "card": "Roll-Up",
+      "title": "Accounting → General Ledger · Roll-Up",
+      "lines": ["The same entries, totaled by account and GL code for the period.", "This is the number your books actually reconcile against."],
+      "narration": "The Roll-Up tab totals those same entries by account and GL code for the period, so instead of individual transactions you get the net your books reconcile against. And that's the full loop — from your GL library, to default accounts and recognition rules, to the ledger itself."
+    }
+  ]
+}
