@@ -52,6 +52,10 @@
     { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/seb/routines/90b678d0-98a1-4918-9515-c2ab98f78418",
       "title": "Turn It Into a Routine",
       "lines": ["Any Seb report can run on a schedule and email itself to you.", "This one runs every Monday morning, automatically."],
-      "narration": "Any report Seb builds can become a routine. This one runs every Monday morning, generates the report as a PDF, and emails it automatically, so finance teams get their numbers without asking." }
+      "narration": "Any report Seb builds can become a routine. This one runs every Monday morning, generates the report as a PDF, and emails it automatically, so finance teams get their numbers without asking." },
+    { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/daily-cashout?filters%5BdateRange%5D=%5B2026-08-25%2000%3A00%3A00%2C%202026-08-25%2023%3A59%3A59%5D&filters%5BcreatorId%5D%5B0%5D=82bb516c-e14e-47fa-8df2-80a59adabcfb",
+      "title": "Daily Cashout",
+      "lines": ["You'll also see a Daily Cashout report option.", "Cash out reports are covered in their own video."],
+      "narration": "You'll also see a Daily Cashout report option. Cash out reports are covered in their own video." }
   ]
 }
