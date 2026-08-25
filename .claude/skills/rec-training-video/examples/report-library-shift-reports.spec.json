@@ -1,0 +1,37 @@
+{
+  "title": "Report Library",
+  "subtitle": "Shift & Cash Summary Reports · Admin walkthrough",
+  "outFile": "Rec-Training_Report-Library-Shift-Reports.mp4",
+  "start": "https://www.rec.us/admin/rec/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/report-library",
+  "intro": {
+    "title": "Report Library",
+    "lines": ["Every report for your organization lives here, organized by type under Finance.", "Today we'll focus on shift reporting —", "how front desk staff and managers close out cash at the end of a shift."],
+    "narration": "Welcome to the Report Library, in the Rec admin. Every report for your organization lives here, organized by type under Finance. Today we'll focus on shift reporting — how front desk staff and managers close out cash at the end of a shift."
+  },
+  "steps": [
+    {
+      "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/daily-cashout?filters%5BdateRange%5D=%5B2026-08-25+00%3A00%3A00%2C+2026-08-25+23%3A59%3A59%5D&filters%5BcreatorId%5D%5B0%5D=82bb516c-e14e-47fa-8df2-80a59adabcfb",
+      "title": "Daily Cashout · End-of-Day Summary",
+      "lines": ["The end-of-day reconciliation summary by location.", "Filtered here to today and one team member, it totals their", "cash, check, and credit card payments for the day."],
+      "narration": "The Daily Cashout report is the end-of-day reconciliation summary by location. Filtered here to today and one team member, it totals their cash, check, and credit card payments — the numbers a staff member checks against the drawer at the end of a shift."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-reports",
+      "title": "Cash Out · Reports",
+      "lines": ["The Reports tab lists every individual shift report a staff member has created.", "A blank Submitted column means it's only been saved;", "a timestamp means a manager has already reviewed and submitted it."],
+      "narration": "Switching to the Reports tab lists every individual shift report a staff member has created. A blank Submitted column means it's only been saved; a timestamp means a manager has already reviewed and submitted it."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-report/0876ed7f-204a-4d41-9788-f5303d1f5565",
+      "title": "Cash Summary Report · Saved, Not Submitted",
+      "lines": ["A staff member enters the drawer total and less float —", "deposit and over/short amounts calculate automatically.", "Notes explain any discrepancy. Save keeps it in draft; Submit is for the manager."],
+      "narration": "This report has been saved but not yet submitted. A staff member enters the drawer total and less float, and the deposit and over-or-short amounts calculate automatically. They can leave a note explaining any discrepancy — Save keeps it in draft, while Submit is for the manager, once they've reviewed it."
+    },
+    {
+      "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-reports?filters%5Bstatus%5D=submitted",
+      "title": "Reports · Filtered to Submitted",
+      "lines": ["Once a manager submits a report, it lands here —", "filtered to Status: Submitted — with its final deposit total and over/short.", "Managers can archive submitted reports from this list once they're no longer needed."],
+      "narration": "Once a manager submits a report, it lands here — the Reports tab filtered to Status: Submitted — with its final deposit total and over or short amount. Managers can archive submitted reports from this list once they're no longer needed."
+    }
+  ]
+}
