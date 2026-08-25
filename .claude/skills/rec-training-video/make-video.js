@@ -123,9 +123,17 @@ async function record(narr) {
   await dlg.getByRole('button', { name: 'Log in', exact: true }).click();
   await sleep(6000);
 
+  // First-use / onboarding modals (e.g. "don't show again", Seb's "Start exploring") can
+  // cover the real page content on a fresh session — dismiss any that show up after a nav.
+  const dismissModals = async (timeout) => {
+    for (const name of [/don.t show again/i, /start exploring/i]) {
+      await page.getByRole('button', { name }).click({ timeout }).catch(() => {});
+    }
+  };
+
   await page.goto(SPEC.start, { waitUntil: 'domcontentloaded', timeout: 60000 });
   await sleep(3000);
-  await page.getByRole('button', { name: /don.t show again/i }).click().catch(() => {});
+  await dismissModals(350);
   await setCap(SPEC.intro.title, SPEC.intro.lines);
   mark(0);
   await dwell(dwellFor(0, SPEC.intro.dwellMs));
@@ -139,8 +147,13 @@ async function record(narr) {
     } else if (s.path) {
       await page.goto(s.path, { waitUntil: 'domcontentloaded', timeout: 60000 });
     }
+    await sleep(600);
+    await dismissModals(300);
     await setCap(s.title, s.lines);
     await sleep(T.settleMs);
+    // Some onboarding modals (e.g. Seb's "Start exploring") render ~1.5s after nav —
+    // after the settle sleep there's been time for it to appear, so check again.
+    await dismissModals(400);
     await setCap(s.title, s.lines);
     mark(i + 1);
     await dwell(dwellFor(i + 1, s.dwellMs));
