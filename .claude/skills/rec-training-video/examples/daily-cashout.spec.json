@@ -1,0 +1,24 @@
+{
+  "title": "Daily Cash Out",
+  "subtitle": "Report Library → Daily Cashout · Admin walkthrough",
+  "outFile": "Rec-Training_Daily-Cash-Out.mp4",
+  "start": "https://www.rec.us/admin/rec/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/report-library",
+  "intro": {
+    "title": "Report Library",
+    "lines": ["Every report for your organization lives here, grouped by category.", "Daily Cashout is the end-of-day reconciliation summary."],
+    "narration": "Welcome to the Daily Cash Out walkthrough. Every report for your organization lives in the Report Library, grouped into Finance and Custom categories. We'll start with Daily Cashout, the end of day reconciliation summary."
+  },
+  "steps": [
+    { "card": "Daily Cashout", "title": "Cash Out · Overview",
+      "lines": ["Filter by date range and team member to see totals by desk location.", "Each row breaks down cash, check, credit card, and account-credit payments.", "Front desk staff or managers start a report here at the end of a shift."],
+      "narration": "This is the Cash Out overview. Filtering by date range and team member shows payment totals broken down by desk location — cash, check, credit card, and account credit. Front desk staff or managers use New Report, right here, to start a shift report at the end of their shift or the end of the day." },
+    { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-report/0876ed7f-204a-4d41-9788-f5303d1f5565",
+      "title": "Cash Summary Report · Draft",
+      "lines": ["Background records the desk location, date range, and deposit-slip number.", "Cash and check amounts roll up into a Deposit Total.", "Summary compares Actual vs. Expected amounts and flags any Over/Short.", "Staff leave a note explaining the difference, then Save for a manager to review."],
+      "narration": "Here's a report in progress, saved but not yet submitted. The Background section records the desk location, date and time range, and a deposit slip number. Cash and check amounts roll up into a deposit total, and the Summary compares the actual amount collected against the expected amount, flagging any over or short automatically. Staff can leave a note explaining the difference, then click Save — leaving it for a manager to review." },
+    { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-reports?filters%5Bstatus%5D=submitted",
+      "title": "Reports · Submitted",
+      "lines": ["Once a manager reviews and submits a report, it moves here.", "Each row shows the deposit total, over/short, and submission time.", "Submitted reports can be downloaded, printed, or archived as needed."],
+      "narration": "Once a manager reviews a saved report and submits it, it lands in the Reports tab under the Submitted filter, showing the deposit total, any over or short amount, and when it was submitted. From here, managers can download, print, or archive reports as needed." }
+  ]
+}
