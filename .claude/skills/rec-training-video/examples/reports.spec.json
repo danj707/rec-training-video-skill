@@ -1,0 +1,26 @@
+{
+  "title": "Reports",
+  "subtitle": "Report Library · Admin walkthrough",
+  "outFile": "Rec-Training_Reports.mp4",
+  "start": "https://www.rec.us/admin/rec/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/report-library",
+  "back": "Report Library",
+  "intro": {
+    "title": "Report Library",
+    "lines": ["Every built-in report for your organization lives here,", "organized into All Reports, Finance, and a beta Custom tab.", "Right now there are ten standard finance reports to explore."],
+    "narration": "Welcome to the Report Library, found under Reports in the left-hand admin navigation. Every built-in report for your organization lives here, organized into three tabs: All Reports, Finance, and a beta Custom tab. Right now there are ten standard finance reports covering transactions, revenue, and receivables. Let's open a few of them."
+  },
+  "steps": [
+    { "card": "Transactions", "title": "Transactions",
+      "lines": ["Every transaction, with summary tiles for revenue, transaction count, and refunds.", "Filter by date, type, payment method, creator, or location.", "Print, export to CSV, or customize the table columns."],
+      "narration": "The Transactions report lists every transaction, with summary tiles at the top for total revenue, transaction count, and refund amount. You can search, or use the filter menu to narrow by date, transaction type, payment method, the staff member who created it, or location. And from the icons on the right, you can print the table, export it to CSV, or customize which columns show." },
+    { "card": "GL Code Rollup", "title": "GL Code Rollup",
+      "lines": ["Payments and refunds summarized by GL code and desk location.", "Shows payment count, refund count, and net dollar amount per code.", "Ties directly back to your Chart of Accounts in Finance settings."],
+      "narration": "GL Code Rollup summarizes payments and refunds by GL code and desk location, showing the number of payments, the number of refunds, and the net dollar amount for each code. It ties directly back to the Chart of Accounts you set up in Finance settings." },
+    { "card": "A/R Aging by Customer", "title": "A/R Aging by Customer",
+      "lines": ["One row per customer, rolling up outstanding balance across all their plans.", "Summary tiles show total outstanding, upcoming, and past due.", "Each customer's balance breaks into aging buckets from 1-30 up to 90-plus days."],
+      "narration": "A/R Aging by Customer rolls up each customer's outstanding balance across all of their payment plans into one row. Summary tiles show total outstanding, upcoming, and past due amounts, and each customer's balance breaks out into aging buckets — one to thirty days, thirty-one to sixty, sixty-one to ninety, and ninety-plus days." },
+    { "path": "https://www.rec.us/admin/rec/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/report-library?tab=custom", "title": "Custom Reports (Beta)",
+      "lines": ["Custom reports are built and shared by your success manager,", "or saved directly from a Seb conversation — currently in beta.", "Examples here include instructor payout and promo code redemption reports."],
+      "narration": "Finally, the Custom tab, currently in beta. Custom reports are built and shared by your success manager, or saved directly from a conversation with Seb, Rec's AI assistant. In this org, that includes an Instructor Payout Revenue Report, a Promo Code Redemption Report, and one generated from a Seb conversation about this week's program bookings and revenue." }
+  ]
+}
