@@ -1,0 +1,22 @@
+{
+  "title": "Daily Cash Out",
+  "subtitle": "Finance → Report Library · Admin walkthrough",
+  "outFile": "Rec-Training_Daily-Cash-Out.mp4",
+  "start": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/daily-cashout?filters%5BdateRange%5D=%5B2026-08-31%2000%3A00%3A00%2C%202026-08-31%2023%3A59%3A59%5D",
+  "intro": {
+    "title": "Report Library → Cash Out",
+    "lines": ["Reconciles cash and check payments by shift or by day.", "This Overview rolls totals up by team member and desk location.", "We'll create, review, and submit a report."],
+    "narration": "Welcome to Daily Cash Out, in the Report Library. This Overview rolls up cash and check payments by team member and desk location for the selected date range. Let's walk through creating a report, reviewing it, and submitting it."
+  },
+  "steps": [
+    { "card": "New Report", "title": "Creating a Shift Report",
+      "lines": ["Front desk staff or managers create a report at the end of a shift,", "or at the end of the day.", "Pick the team member, the shift's date and time range, and desk location."],
+      "narration": "Front desk staff or managers can create a shift report right from here, either at the end of a shift or at the end of the day. Clicking New Report opens this form — pick the team member, the exact date and time range for the shift, and optionally a desk location, then create the report." },
+    { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-reports", "title": "Reports · Draft, Submitted, Archived",
+      "lines": ["Staff can save a report as a draft after their shift.", "A manager reviews it, then submits it — and archives it once done.", "This list tracks every report through that lifecycle."],
+      "narration": "Every report lands here, in the Reports tab. Staff can save their report as a draft at the end of a shift, and a manager reviews it before submitting. Once a report's been handled, it can be archived — the Drafts, Submitted, and Archived tabs track where each one stands." },
+    { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-report/e2476f82-b7bf-4b0b-86bd-04523aabafc9", "title": "Cash Summary Report",
+      "lines": ["Drawer total, less float, and check payments roll into a Deposit Total.", "Actual vs. Expected amounts show any Over/Short.", "Staff leave a Note explaining the difference — like this one, which trues up."],
+      "narration": "Opening a submitted report shows the full breakdown — drawer total, less float, and checks all rolling into a deposit total, compared against the expected amount. Here, actual and expected match exactly, an over-short of zero. Staff can leave a note explaining any discrepancy — this one simply notes that it trues up." }
+  ]
+}
