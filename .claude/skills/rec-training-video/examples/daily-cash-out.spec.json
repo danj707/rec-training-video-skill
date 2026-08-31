@@ -1,0 +1,27 @@
+{
+  "title": "Daily Cash Out",
+  "subtitle": "Finance · Report Library walkthrough",
+  "outFile": "Rec-Training_Daily-Cash-Out.mp4",
+  "start": "https://www.rec.us/admin/rec/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/report-library",
+  "intro": {
+    "title": "Report Library",
+    "lines": ["All of your organization's reports live here, grouped by type.", "We'll walk through Daily Cashout — the end-of-day cash", "reconciliation process for front desk staff and managers."],
+    "narration": "Welcome to the Daily Cash Out walkthrough. Every finance report lives in the Report Library — we'll focus on Daily Cashout, the report front desk staff and managers use to reconcile cash at the end of a shift or the end of the day."
+  },
+  "steps": [
+    { "card": "Daily Cashout", "title": "Cash Out · Overview",
+      "lines": ["A rollup of cash, check, card, and account-credit payments,", "by team member and desk location, for your date range.", "Individual shift reports live under the Reports tab."],
+      "narration": "Clicking in opens the Overview — a rollup of cash, check, card, and account-credit payments by team member and desk location for the date range you choose. The individual shift reports live under the Reports tab." },
+    { "card": "Reports", "title": "Cash Out · Reports",
+      "lines": ["Every Cash Summary Report — filterable by Drafts, Submitted, or Archived.", "Front desk staff save a report at the end of their shift,", "and it stays a Draft until a manager reviews and submits it."],
+      "narration": "Reports lists every Cash Summary Report, filterable by Drafts, Submitted, or Archived. Front desk staff save a report at the end of their shift, and it stays a Draft until a manager reviews and submits it." },
+    { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-report/416953c4-e2a7-4f50-9464-3631eff5ae8e",
+      "title": "Draft Report · Not Yet Submitted",
+      "lines": ["Staff enter the drawer total and deposit slip number, then save.", "Actual is compared to Expected automatically.", "A note is required to explain any over or short amount."],
+      "narration": "Here's a saved draft. Staff enter the drawer total and deposit slip number, then save — Rec compares that to the expected amount automatically. If the two don't match, staff must leave a note explaining the over or short before it can be submitted." },
+    { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/finance/cash-summary-report/e2476f82-b7bf-4b0b-86bd-04523aabafc9",
+      "title": "Submitted Report · Reviewed",
+      "lines": ["Once everything balances, a manager submits the report to lock it in.", "From here they can download, print, or archive it once reviewed."],
+      "narration": "Once everything balances, a manager submits the report to lock it in — this one already has. From here, a manager can download it, print it, or archive it once they've reviewed it." }
+  ]
+}
