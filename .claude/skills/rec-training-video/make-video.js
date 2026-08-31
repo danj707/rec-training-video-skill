@@ -110,6 +110,10 @@ async function record(narr) {
   const setCap = async (title, lines) => { await ensure(); await page.evaluate(([a, b]) => window.__setCap(a, b), [title, lines.join('<br>')]); };
   const point = async (loc) => { try { const b = await loc.boundingBox(); if (b) { await ensure(); await page.evaluate(([x, y]) => window.__cur(x, y), [b.x + Math.min(b.width / 2, 260), b.y + b.height / 2]); await sleep(650); } } catch {} };
   const dwell = async (ms) => { const n = T.scrollChunks; for (let i = 0; i < n; i++) { await page.mouse.wheel(0, 250); await sleep(ms / (n + 2)); } await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'smooth' })); await sleep(ms / (n + 2) * 2); };
+  // For a step that names a specific on-page section (scrollTo), center that section instead
+  // of the generic scroll-down dwell, and hold there for the narration instead of scrolling off it.
+  const scrollToText = async (text) => { try { await main().getByText(text, { exact: true }).first().evaluate(el => el.scrollIntoView({ block: 'center' })); } catch {} };
+  const hold = (ms) => sleep(ms);
   const dwellFor = (i, base) => Math.max(base || 0, Math.round(narr.clips[i].dur * 1000) + T.leadMs + T.tailMs);
 
   // login (email + password)
@@ -139,11 +143,14 @@ async function record(narr) {
     } else if (s.path) {
       await page.goto(s.path, { waitUntil: 'domcontentloaded', timeout: 60000 });
     }
+    if (s.scrollTo) await scrollToText(s.scrollTo);
     await setCap(s.title, s.lines);
     await sleep(T.settleMs);
+    if (s.scrollTo) await scrollToText(s.scrollTo);
     await setCap(s.title, s.lines);
     mark(i + 1);
-    await dwell(dwellFor(i + 1, s.dwellMs));
+    if (s.scrollTo) await hold(dwellFor(i + 1, s.dwellMs));
+    else await dwell(dwellFor(i + 1, s.dwellMs));
     if (s.card && SPEC.back) {
       await main().getByRole('link', { name: SPEC.back, exact: true }).first().click();
       await setCap(SPEC.intro.title, SPEC.intro.lines);

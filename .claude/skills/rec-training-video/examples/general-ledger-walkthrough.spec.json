@@ -10,6 +10,7 @@
   },
   "steps": [
     { "path": "https://www.rec.us/admin/o/9f032cf2-0fc4-440e-b2f3-2f8382c9ca7f/settings/finance/default-accounts",
+      "scrollTo": "Deferred Revenue Account",
       "title": "Default Accounts",
       "lines": ["Sets standard revenue accounts by payment method,", "plus the org-wide Deferred Revenue account."],
       "narration": "Default Accounts sets your standard revenue accounts by payment method, and — importantly — the Deferred Revenue account. That's the account used any time a revenue type is set to recognize revenue at time of service delivery." },

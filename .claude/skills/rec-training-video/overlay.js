@@ -17,4 +17,27 @@
   }
   window.__setCap = (t, b) => { const c = document.getElementById('__capt'), d = document.getElementById('__capb'); if (c) c.textContent = t; if (d) d.innerHTML = b; };
   window.__cur = (x, y) => { const e = document.getElementById('__cur'); if (e) { e.style.left = (x - 10) + 'px'; e.style.top = (y - 10) + 'px'; } };
+
+  // Hide stray floating widgets (e.g. a leftover "Active Order" POS cart timer) that can
+  // pop up over a page mid-recording and have nothing to do with the walkthrough. Finds the
+  // fixed/sticky-positioned ancestor of any matching text and hides that whole widget.
+  const STRAY_TEXT = /active order|view order/i;
+  const hideStray = (root) => {
+    for (const el of root.querySelectorAll('body *')) {
+      if (el.id === '__cap' || el.id === '__cur' || el.closest('#__cap')) continue;
+      const txt = el.textContent;
+      if (!txt || txt.length > 400 || !STRAY_TEXT.test(txt)) continue;
+      let node = el;
+      while (node && node !== document.body) {
+        const pos = getComputedStyle(node).position;
+        if (pos === 'fixed' || pos === 'sticky') { node.style.setProperty('display', 'none', 'important'); break; }
+        node = node.parentElement;
+      }
+    }
+  };
+  hideStray(document);
+  if (!window.__strayObserver) {
+    window.__strayObserver = new MutationObserver(() => hideStray(document));
+    window.__strayObserver.observe(document.body, { childList: true, subtree: true });
+  }
 })();
